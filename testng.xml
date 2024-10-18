@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AuditNest">
+    <listeners>
+        <listener class-name="Utilities.AllureListeners"></listener>
+    </listeners>
+    <test thread-count="5" name="Admin Module">
+        <classes>
+<!--            <class name="TestCase.Scenario_01.Scenario_01"></class>-->
+<!--            <class name="TestCase.Scenario_02.Scenario_02"></class>-->
+
+        </classes>
+
+    </test>
+</suite>
