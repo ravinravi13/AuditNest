@@ -6,7 +6,7 @@
     </listeners>
     <test thread-count="5" name="Admin Module">
         <classes>
-<!--            <class name="TestCase.Scenario_01.Scenario_01"></class>-->
+           <class name="TestCase.Scenario_01.Scenario_01"></class>
 <!--            <class name="TestCase.Scenario_02.Scenario_02"></class>-->
 
         </classes>

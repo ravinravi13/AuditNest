@@ -50,7 +50,7 @@ public class Scenario_03 extends BaseClass {
     }
 
     @Test
-    @Description("Verify able to edit invalid date")
+    @Description("Verify the able to edit invalid date")
     public void TC_AN_002_Verify_Invalid_date(){
         obj_SC_AN_003.ClickEdit();
         obj_SC_AN_003.Selectdate("18-10-2024");
@@ -72,7 +72,7 @@ public class Scenario_03 extends BaseClass {
    }
 
     @Test
-    @Description("Veriy the Response input that correctly reflect on respective filed")
+    @Description("Verify the Response input that correctly reflect on respective filed")
     public void TC_AN_004_Verify_Edit_Pre_Audit_Compalince()
     {
         obj_SC_AN_003.ClickProjectName();
