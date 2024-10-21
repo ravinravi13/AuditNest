@@ -67,11 +67,17 @@ public class Scenario_04 extends BaseClass {
 
     @Test
     @Description("Verify the Database validate with recently created audit report")
-    public void TC_AN_002_Verify_DB_AuditReport() throws SQLException {
+    public void TC_AN_002_Verify_DB_AuditReport() throws SQLException, InterruptedException {
+        obj_SC_AN_004.ClickAuditReport();
+        obj_SC_AN_004.ClickAuditReport1();
+        List<String>actual_list;
+        actual_list = obj_SC_AN_004.tableContent();
+        System.out.println("Expected = "+actual_list);
+        Thread.sleep(3000);
         List arraylist = new ArrayList();
         StringBuilder tableContent = new StringBuilder();
         Connection connection = obj_DBconnection.dbconnect();
-        String qu = "";
+        String qu = "select ProjectName,BusinessName,Unit,AuditDate,AuditBy,ProjectMatrix from AuditMaintenance where id=1735";
         Allure.step("Use this query fetch value from database : " + qu);
         String query = qu;
         Statement stmt = connection.createStatement();
@@ -81,7 +87,7 @@ public class Scenario_04 extends BaseClass {
             tableContent.append(rs.getMetaData().getColumnName(i)).append("\t");
         }
         while (rs.next()) {
-            for (int i = 2; i <= columnCount; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 System.out.println(rs.getString(i));
                 arraylist.add(rs.getString(i));
                 tableContent.append(rs.getString(i)).append("\t");
@@ -89,8 +95,21 @@ public class Scenario_04 extends BaseClass {
             tableContent.append("\n");
         }
         Allure.addAttachment("Database Table", new ByteArrayInputStream(tableContent.toString().getBytes(StandardCharsets.UTF_8)));
-        Boolean result = expected.equals(arraylist);
-        Assert.assertEquals(result, true, "Table Value is not matched");
+//        int count =0;
+//        for(String i :actual_list){
+//
+//            if(i.contains(arraylist.toString())) {
+//                System.out.println("true");
+//            }
+//            else {
+//                System.out.println("false");
+//            }
+//
+//
+//
+//        }
+        boolean res = actual_list.equals(arraylist);
+        Assert.assertEquals(res, true, "Table Value is not matched");
     }
 
 

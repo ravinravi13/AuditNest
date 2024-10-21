@@ -6,7 +6,6 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class SC_AN_004 extends BaseClass {
     String ProjectMatrix_loc = "//select[@name='projectmatrix']";
     String OMAapplication_loc ="//select[@name='OMApplicable']";
     String checklist_loc = "//select[@name='checkList']";
-    String table_loc = "//table[@class='MuiTable-root-2442 table']";
+    String table_loc = "//table[@class='MuiTable-root-134 table']";
     String Edit_btn = "(//a[@class='action cursor'])[2]";
     String Delete_loc = "//*[@id=\"react-app\"]/div/div[2]/div/div[2]/div/div/div[2]/div/table/tbody/tr[2]/td[15]/a[3]";
 
@@ -130,23 +129,24 @@ public class SC_AN_004 extends BaseClass {
     }
 
     @Step("After Successfully registered the preAudit then verify it display table of Pre-Audit Section")
-    public List tableContent()
-    {
+    public List tableContent() throws InterruptedException {
         arr = new ArrayList<String>();
         WebElement table = Findelement(Locators.xpath,table_loc);
         List<WebElement> allRows = table.findElements(By.cssSelector("tbody tr"));
+        Thread.sleep(3000);
         for(WebElement rowElement : allRows)
         {
             List<WebElement> row = rowElement.findElements(By.tagName("td"));
             for(WebElement eachrow : row)
             {
 
-                if(c<=5) {
+                c++;
+                if(c>15 && c<=21) {
                     String value = eachrow.getText();
                     arr.add(value);
-                    c++;
+
                 }
-                if(c==5)
+                if(c==21)
                 {
                     break;
                 }
