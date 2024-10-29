@@ -20,23 +20,23 @@ public class SC_AN_004 extends BaseClass {
     String ProjectName_loc = "//select[@name='projectName']";
     String Unit_loc = "//select[@name='unit']";
     String Auditdate = "//input[@name='auditDate']";
-    String save_loc = "//button[text()='Save']";
+    String save_loc = "(//button[@type='submit'])[2]";
     String cancel_loc ="//button[text()='Cancel']";
     String Search_loc = "//input[@placeholder='Search Text Here']";
     String Auditby_loc = "//input[@name='auditBy']";
     String  AuditStatus = "//select[@name='overallStatus']";
     String Auditee_loc ="//div[@role='button']";
     String ProjectType_loc = "//select[@name='projectType']";
-    String ProjectHandling_loc = "//select[@name='category']";
+    String ProjectHandling_loc = "//select[@name='projectHandling']";
     String ProjectMatrix_loc = "//select[@name='projectmatrix']";
     String OMAapplication_loc ="//select[@name='OMApplicable']";
     String checklist_loc = "//select[@name='checkList']";
-    String table_loc = "//table[@class='MuiTable-root-134 table']";
+    String table_loc = "//table[@class='MuiTableBody-root-774']";
     String Edit_btn = "(//a[@class='action cursor'])[2]";
     String Delete_loc = "//*[@id=\"react-app\"]/div/div[2]/div/div[2]/div/div/div[2]/div/table/tbody/tr[2]/td[15]/a[3]";
 
     int c=0;
-    List arr;
+    ArrayList<String> arr;
 
 
     @Step("Click the AuditReport navigation bar")
@@ -129,9 +129,10 @@ public class SC_AN_004 extends BaseClass {
     }
 
     @Step("After Successfully registered the preAudit then verify it display table of Pre-Audit Section")
-    public List tableContent() throws InterruptedException {
-        arr = new ArrayList<String>();
-        WebElement table = Findelement(Locators.xpath,table_loc);
+    public ArrayList<String> tableContent() throws InterruptedException {
+        arr = new ArrayList<>();
+        Thread.sleep(3000);
+        WebElement  table = Findelement(Locators.xpath,table_loc);
         List<WebElement> allRows = table.findElements(By.cssSelector("tbody tr"));
         Thread.sleep(3000);
         for(WebElement rowElement : allRows)
@@ -155,11 +156,30 @@ public class SC_AN_004 extends BaseClass {
 
         }
         String Arraylist = arr.toString();
+        System.out.println(Arraylist);
 
         Allure.addAttachment("Value get from tables :", new ByteArrayInputStream(Arraylist.getBytes(StandardCharsets.UTF_8)));
         return arr;
 
     }
+
+
+    public String GetDate()
+    {
+        String date = getText(Locators.xpath,"//table[contains(@class,'MuiTable-root-347 table')]/tbody[1]/tr[2]/td[4]");
+        return date;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @Step("Click Edit button")
     public void ClickEdit() {
@@ -169,6 +189,11 @@ public class SC_AN_004 extends BaseClass {
     @Step("Click Delete button")
     public void ClickDelete() {
         click(Findelement(Locators.xpath,Delete_loc));
+    }
+
+    @Step("Click save button")
+    public void Click_cancel(){
+        click(Findelement(Locators.xpath,cancel_loc));
     }
 
 

@@ -5,6 +5,7 @@ import Utilities.Screenshot;
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
@@ -64,6 +66,8 @@ public class BaseClass {
         driver.close();
     }
 
+    @AfterClass
+    @Step("Browser Quite")
     public void quite() {
 
         driver.quit();
@@ -129,6 +133,8 @@ public class BaseClass {
 
             case cssSelector:
                 return driver.findElements(By.cssSelector(value));
+            case tagname:
+                return driver.findElements(By.tagName(value));
 
             default:
                 throw new IllegalArgumentException("Invalid locator type: " + type);
@@ -196,23 +202,23 @@ public class BaseClass {
     }
 
 
-    public void Screen(ITestResult result) {
-        if (ITestResult.FAILURE == result.getStatus()) {
-            String screenshotPath = Screenshot.captureScreenshot(driver, result.getName());
-            attachScreenshotToAllure(screenshotPath);
-        }
-
-    }
-
-    @Attachment(value = "Screenshot on Failure", type = "image/png")
-    public byte[] attachScreenshotToAllure(String path) {
-        try {
-            return FileUtils.readFileToByteArray(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new byte[0];
-        }
-    }
+//    public void Screen(ITestResult result) {
+//        if (ITestResult.FAILURE == result.getStatus()) {
+//            String screenshotPath = Screenshot.captureScreenshot(driver, result.getName());
+//            attachScreenshotToAllure(screenshotPath);
+//        }
+//
+//    }
+//
+//    @Attachment(value = "Screenshot on Failure", type = "image/png")
+//    public byte[] attachScreenshotToAllure(String path) {
+//        try {
+//            return FileUtils.readFileToByteArray(new File(path));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new byte[0];
+//        }
+//    }
 
 //    @BeforeSuite
 //    public void setAllureEnvironment() {
@@ -223,22 +229,18 @@ public class BaseClass {
 //    }
 
 @BeforeClass
-    @Step("Enter the Microsoft Authentication of Email and Password")
+    @Step("Browser starts")
     public void Setup() throws InterruptedException {
 
       Browerlaunch("edge");
 
-            WebElement emailField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("i0116")));
-            emailField.sendKeys("raveendran.manickam@ilink-systems.com");
-            click(Findelement(Locators.id, "idSIButton9"));      //driver.findElement(By.id("idSIButton9")).click();
-            WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("i0118")));//passwordField.sendKeys(Password);
-            passwordField.sendKeys("Rmm:2003");
-            Thread.sleep(3000);
-            WebElement click_sign = driver.findElement(By.id("idSIButton9"));
-            click_sign.click();
-            Thread.sleep(3000);
+
 
         }
+
+
+
+
     }
 
 

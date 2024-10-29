@@ -2,12 +2,16 @@ package Utilities;
 
 import Base.BaseClass;
 import io.qameta.allure.Attachment;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import java.io.File;
+import java.io.IOException;
 
 public class AllureListeners extends BaseClass implements ITestListener {
 
@@ -50,6 +54,24 @@ public class AllureListeners extends BaseClass implements ITestListener {
     public void onTestSkipped(ITestResult iTestResult) {
         System.out.println("In onTestSkipped method " + getTestMethodName(iTestResult) + " skipped");
 
+    }
+
+    public void onTestFailure(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            String screenshotPath = Screenshot.captureScreenshot(driver, result.getName());
+            attachScreenshotToAllure(screenshotPath);
+        }
+
+    }
+
+    @Attachment(value = "Screenshot on Failure", type = "image/png")
+    public byte[] attachScreenshotToAllure(String path) {
+        try {
+            return FileUtils.readFileToByteArray(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
     }
 
 

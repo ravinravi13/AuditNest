@@ -9,9 +9,6 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
-
 public class Scenario_01 extends BaseClass {
     SC_AN_001 obj_SC_AN_001 = new SC_AN_001();
 
@@ -21,10 +18,13 @@ public class Scenario_01 extends BaseClass {
     public void AN_TC_001_VerifyLogin() {
         String Actual = "Welcome To Audit Nest";
         Allure.step("Actual text is"+ Actual);
+        System.out.println("Actual "+ Actual);
         String expected = obj_SC_AN_001.Verify_Text();
         Allure.step("Expected text is"+ expected);
+        System.out.println("Actual "+ expected);
         Assert.assertEquals(Actual, expected, "text can't be equal");
         Screenshot.captureStepScreenshot(BaseClass.driver);
+        System.out.println();
     }
 
 

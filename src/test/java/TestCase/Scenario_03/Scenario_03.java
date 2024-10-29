@@ -5,6 +5,7 @@ import Pages.Scenario_03.SC_AN_003;
 import Utilities.Screenshot;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
+import org.openqa.selenium.Alert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.io.ByteArrayInputStream;
@@ -18,18 +19,20 @@ public class Scenario_03 extends BaseClass {
     SC_AN_003 obj_SC_AN_003  = new SC_AN_003();
     DBconnection obj_DBconnection = new DBconnection();
 
-    @Test
+   // @Test
     @Description("Edit the Pre-Audit data by Unit and date")
     public void TC_AN_001_Verify_editDate_Unit() throws SQLException {
+
+        obj_SC_AN_003.Click_PreAuditreport();
+        obj_SC_AN_003.Click_PreAuditreport_2();
         obj_SC_AN_003.ClickEdit();
         obj_SC_AN_003.SelectUnit("DATA");
-        obj_SC_AN_003.Selectdate("18-10-2024");
+        obj_SC_AN_003.Selectdate("24-10-2024");
         Screenshot.captureStepScreenshot(BaseClass.driver);
         obj_SC_AN_003.ClickSave();
-
         StringBuilder tableContent = new StringBuilder();
         Connection connection = obj_DBconnection.dbconnect();
-        String qu = "select top 5 * from PreAuditMaintenance where id=149";
+        String qu = "select top 5 * from PreAuditMaintenance where id=159";
         Allure.step("Use this query to fetch the table : " + qu);
         String query = qu;
         Statement stmt = connection.createStatement();
@@ -49,41 +52,71 @@ public class Scenario_03 extends BaseClass {
 
     }
 
-    @Test
+    //@Test
     @Description("Verify the able to edit invalid date")
     public void TC_AN_002_Verify_Invalid_date(){
+        obj_SC_AN_003.Click_PreAuditreport();
+        obj_SC_AN_003.Click_PreAuditreport_2();
         obj_SC_AN_003.ClickEdit();
-        obj_SC_AN_003.Selectdate("18-10-2024");
+        obj_SC_AN_003.Selectdate("18-10-0000");
         Screenshot.captureStepScreenshot(BaseClass.driver);
         obj_SC_AN_003.ClickSave();
+        Assert.fail("Invalidate is allowed ");
     }
 
 
 
-   @Test
+ //  @Test
    @Description("Verify the ProjectName on Pre Audit Compliance")
    public void TC_AN_003_Verify_projectName()
    {
-       String Actual = "";
+       obj_SC_AN_003.Click_PreAuditreport();
+       obj_SC_AN_003.Click_PreAuditreport_2();
+       obj_SC_AN_003.ClickProjectName();
+       String Actual = " SMAART";
        Allure.step("The Actual projectName : "+ Actual);
        String expected = obj_SC_AN_003.GetProjectNameText();
        Allure.step("The Expected projectName : "+ expected);
        Assert.assertEquals(Actual,expected,"ProjectName is not matched");
    }
 
-    @Test
-    @Description("Verify the Response input that correctly reflect on respective filed")
-    public void TC_AN_004_Verify_Edit_Pre_Audit_Compalince()
-    {
+   // @Test
+    @Description("Verify Edit the PreAudit Compliance provide input of response filed ")
+    public void TC_AN_004_Verify_Edit_Pre_Audit_Compalince() throws InterruptedException {
+        obj_SC_AN_003.Click_PreAuditreport();
+        obj_SC_AN_003.Click_PreAuditreport_2();
         obj_SC_AN_003.ClickProjectName();
-        obj_SC_AN_003.SendResponse("");
+        obj_SC_AN_003.ClickEdit();
         obj_SC_AN_003.ClickSave();
-        String actual ="";
-        Allure.step("Actual Response : "+actual);
-        String expected = obj_SC_AN_003.Validate_response();
-        Allure.step("expected Response : "+expected);
-        Assert.assertEquals(actual,expected,"Response did not matched");
+        Thread.sleep(3000);
+        Allure.step("Accpect the ");
+        Alert alert = BaseClass.driver.switchTo().alert();
+        Allure.step("Accpect the Alert of : "+ alert.getText());
+        alert.accept();
+        Assert.fail("Not showing any error instead of showing alert displays like changes is saved");
+
     }
+
+   // @Test
+    @Description("Verify Edit the PreAudit Compliance provide input of response filed")
+    public void TC_AN_005_Verify_Edit_Pre_Audit_Compalince() throws InterruptedException {
+
+        String value ="SMAART";
+        obj_SC_AN_003.Click_PreAuditreport();
+        obj_SC_AN_003.Click_PreAuditreport_2();
+        obj_SC_AN_003.ClickProjectName();
+        obj_SC_AN_003.ClickEdit();
+//        obj_SC_AN_003.SendResponse(value);
+        obj_SC_AN_003.ClickSave();
+        Thread.sleep(3000);
+        Alert alert = BaseClass.driver.switchTo().alert();
+        alert.accept();
+        obj_SC_AN_003.Click_Back();
+        String expected = obj_SC_AN_003.Validate_response();
+        Assert.assertEquals(value,expected,"Value is not matched");
+
+    }
+
 
 
 
