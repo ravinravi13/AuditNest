@@ -1,1 +1,73 @@
-{"uuid":"0e247c8d-3e1f-4ef9-b808-08071eeb8c74","name":"TestCase.Scenario_05.Scenario_05","children":["3a2ea132-6965-4f09-b2c8-bdfe59f5372d"],"befores":[{"name":"Setup","status":"passed","stage":"finished","description":"","steps":[{"name":"Browser starts","status":"passed","stage":"finished","steps":[{"name":"lanch the Browser : edge","status":"passed","stage":"finished","steps":[],"attachments":[],"parameters":[{"name":"browser","value":"edge"}],"start":1730133138359,"stop":1730133147325}],"attachments":[],"parameters":[],"start":1730133138358,"stop":1730133147325}],"attachments":[],"parameters":[],"start":1730133138332,"stop":1730133147326}],"afters":[{"name":"quite","status":"passed","stage":"finished","description":"","steps":[{"name":"Browser Quite","status":"passed","stage":"finished","steps":[],"attachments":[],"parameters":[],"start":1730133150092,"stop":1730133151471}],"attachments":[],"parameters":[],"start":1730133150091,"stop":1730133151471}],"start":1730133138275,"stop":1730133151487}
+{
+  "uuid": "0e247c8d-3e1f-4ef9-b808-08071eeb8c74",
+  "name": "TestCase.Scenario_05.Scenario_05",
+  "children": [
+    "3a2ea132-6965-4f09-b2c8-bdfe59f5372d"
+  ],
+  "befores": [
+    {
+      "name": "Setup",
+      "status": "passed",
+      "stage": "finished",
+      "description": "",
+      "steps": [
+        {
+          "name": "Browser starts",
+          "status": "passed",
+          "stage": "finished",
+          "steps": [
+            {
+              "name": "lanch the Browser : edge",
+              "status": "passed",
+              "stage": "finished",
+              "steps": [],
+              "attachments": [],
+              "parameters": [
+                {
+                  "name": "browser",
+                  "value": "edge"
+                }
+              ],
+              "start": 1730133138359,
+              "stop": 1730133147325
+            }
+          ],
+          "attachments": [],
+          "parameters": [],
+          "start": 1730133138358,
+          "stop": 1730133147325
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "start": 1730133138332,
+      "stop": 1730133147326
+    }
+  ],
+  "afters": [
+    {
+      "name": "quite",
+      "status": "passed",
+      "stage": "finished",
+      "description": "",
+      "steps": [
+        {
+          "name": "Browser Quite",
+          "status": "passed",
+          "stage": "finished",
+          "steps": [],
+          "attachments": [],
+          "parameters": [],
+          "start": 1730133150092,
+          "stop": 1730133151471
+        }
+      ],
+      "attachments": [],
+      "parameters": [],
+      "start": 1730133150091,
+      "stop": 1730133151471
+    }
+  ],
+  "start": 1730133138275,
+  "stop": 1730133151487
+}
