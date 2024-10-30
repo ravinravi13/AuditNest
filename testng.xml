@@ -12,7 +12,9 @@
             <!--            <class name="TestCase.Scenario_04.Scenario_04"></class>-->
             <!--            <class name="TestCase.Scenario_05.Scenario_05"></class>-->
             <!--            <class name="TestCase.Scenario_06.Scenario_06"></class>-->
-            <class name="TestCase.Scenario_07.Scenario_07"></class>
+<!--            <class name="TestCase.Scenario_07.Scenario_07"></class>-->
+            <class name="TestCase.Scenario_08.Scenario_08"></class>
+
         </classes>
 
     </test>

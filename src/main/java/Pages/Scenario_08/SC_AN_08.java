@@ -6,18 +6,25 @@ import io.qameta.allure.Step;
 
 public class SC_AN_08 extends BaseClass {
 
-    String KPI_loc  = "//a[@class='active']";
+    String BEF_loc ="(//li[@title='FunctionMaintenance']//a)[1]";
+    String BEF_loc1  = "BEF";
     String Add_loc = "//div[@class='control-right']//a[1]";
-    String sprintName_loc  ="//input[@name='sprintName']";
-    String SprintDesc_loc = "//input[@name='sprintDesc']";
-    String startdate_loc  = "//input[@name='startDate']";
-    String Enddate_loc = "//input[@name='endDate']";
+    String FunctionType_loc  ="//select[@name='functionType']";
+    String AuditStatus_loc = "//select[@name='auditStatus']";
+    String Auditdate_loc  = "//input[@name='auditDate']";
+    String Checklist_loc = "//select[@name='checkList']";
     String Save_loc = "(//button[@type='submit'])[2]";
+    String Back_loc ="Back";
 
 
-    @Step("Click KPI from side nav bar")
-    public void ClickKPI(){
-        click(Findelement(Locators.xpath,KPI_loc));
+    @Step("Click BEF from side nav bar")
+    public void ClickBEF(){
+        click(Findelement(Locators.xpath,BEF_loc));
+    }
+
+    @Step("Click BEF Sub-Category of Business Enabler function")
+    public void ClickBEF1(){
+        click(Findelement(Locators.link,BEF_loc1));
     }
 
     @Step("Click Add icon from right corner")
@@ -25,27 +32,31 @@ public class SC_AN_08 extends BaseClass {
         click(Findelement(Locators.xpath,Add_loc));
     }
 
-    @Step("Enter the Sprintname in Textbox as : {0}")
-    public void EnterSprintName(String value){
-        Send(Findelement(Locators.xpath,sprintName_loc),value);
+    @Step("Select the FunctionType  in Dropdown as : {0}")
+    public void SelectFunctionType(String value){
+       SelectVisibleText(Findelement(Locators.xpath,FunctionType_loc),value);
     }
-    @Step("Enter the Sprintname description in Textbox as : {0}")
-    public void EnterSprintNamedesc(String value){
-        Send(Findelement(Locators.xpath,SprintDesc_loc),value);
+    @Step("Select the AuditStatus description in Textbox as : {0}")
+    public void SelectAuditStatus(String value){
+     SelectVisibleText(Findelement(Locators.xpath,AuditStatus_loc),value);
     }
 
-    @Step("Enter the Start date in date picker as : {0}")
-    public void startdate(String value){
-        Send(Findelement(Locators.xpath,startdate_loc),value);
+    @Step("Enter the Auditdate date in date picker as : {0}")
+    public void Audittdate(String value){
+        Send(Findelement(Locators.xpath,Auditdate_loc),value);
     }
-    @Step("Enter the End date in date picker as : {0}")
-    public void Enddate(String value){
-        Send(Findelement(Locators.xpath,Enddate_loc),value);
+    @Step("Select CheckList in dropdown as : {0}")
+    public void CheckList(String value){
+        SelectVisibleText(Findelement(Locators.xpath,Checklist_loc),value);
     }
 
     @Step("Click Save button")
     public void Click_Save(){
         click(Findelement(Locators.xpath,Save_loc));
+    }
+    @Step("Click back button")
+    public void Click_back(){
+        click(Findelement(Locators.link,Back_loc));
     }
 
 
