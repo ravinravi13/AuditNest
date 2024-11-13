@@ -38,9 +38,6 @@ public class Scenario_03 extends BaseClass {
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         int columnCount = rs.getMetaData().getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
-            tableContent.append(rs.getMetaData().getColumnName(i)).append("\t");
-        }
         while (rs.next()) {
             for (int i = 2; i <= columnCount; i++) {
                 System.out.println(rs.getString(i));

@@ -1,0 +1,1 @@
+{"uuid":"a2c49cd0-7bdd-4649-96be-f6e21c068e6d","name":"AuditNest","children":["9d081825-27cf-41fa-84ed-1e44f7643168"],"befores":[{"name":"setAllureEnvironment","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1731475061738,"stop":1731475061825}],"afters":[],"start":1731475061711,"stop":1731475081272}

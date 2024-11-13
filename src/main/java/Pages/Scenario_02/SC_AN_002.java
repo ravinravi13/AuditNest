@@ -157,6 +157,7 @@ public class SC_AN_002 extends BaseClass {
                 .forEach(arr::add);
 
         String arrayList = arr.toString();
+        System.out.println("Table content  : "+arrayList);
         Allure.addAttachment("Value get from tables:", new ByteArrayInputStream(arrayList.getBytes(StandardCharsets.UTF_8)));
 
         return arr;

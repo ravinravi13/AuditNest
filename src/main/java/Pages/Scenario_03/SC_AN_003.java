@@ -34,6 +34,7 @@ public class SC_AN_003 extends BaseClass {
     @Step("Click togglecase of PreAudit Report ")
 
     public void Click_PreAuditreport_2() {
+
         click(Findelement(Locators.xpath, Preaudit_loc_2));
     }
 

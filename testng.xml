@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="AuditNest">
+<suite name="AuditNest" parallel="methods" thread-count="2">
     <listeners>
-        <listener class-name="Utilities.AllureListeners"></listener>
+        <listener class-name="Utilities.AllureListeners"> </listener>
     </listeners>
+
     <test thread-count="5" name="Admin Module">
+        <groups>
+            <run>
+                <include name="setup"/>
+                <include name="Search"/>
+            </run>
+        </groups>
+
         <classes>
-            <!--           <class name="TestCase.Scenario_01.Scenario_01"></class>-->
-            <!--            <class name="TestCase.Scenario_02.Scenario_02"></class>-->
+<!--                       <class name="TestCase.Scenario_01.Scenario_01"></class>-->
+                        <class name="TestCase.Scenario_02.Scenario_02"></class>
             <!--            <class name="TestCase.Scenario_03.Scenario_03"></class>-->
             <!--            <class name="TestCase.Scenario_04.Scenario_04"></class>-->
             <!--            <class name="TestCase.Scenario_05.Scenario_05"></class>-->
             <!--            <class name="TestCase.Scenario_06.Scenario_06"></class>-->
 <!--            <class name="TestCase.Scenario_07.Scenario_07"></class>-->
-            <class name="TestCase.Scenario_08.Scenario_08"></class>
+<!--            <class name="TestCase.Scenario_08.Scenario_08"></class>-->
 
         </classes>
 
     </test>
+
 </suite>

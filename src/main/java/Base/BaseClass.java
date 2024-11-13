@@ -1,5 +1,4 @@
 package Base;
-
 import Utilities.Locators;
 import Utilities.Screenshot;
 import com.google.common.collect.ImmutableMap;
@@ -21,10 +20,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.File;
-import java.io.IOException;
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
+
+import java.io.*;
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 public class BaseClass {
@@ -33,6 +34,7 @@ public class BaseClass {
     static long maxWaitTime = 20;
     public static RemoteWebDriver driver;
     public  static WebDriverWait wait ;
+    public static Properties prop;
 
     @Step("lanch the Browser : {0}")
     public void  Browerlaunch(String browser) {
@@ -66,7 +68,7 @@ public class BaseClass {
         driver.close();
     }
 
-    @AfterClass
+    @AfterClass(groups = {"setup"})
     @Step("Browser Quite")
     public void quite() {
 
@@ -220,28 +222,54 @@ public class BaseClass {
 //        }
 //    }
 
-//    @BeforeSuite
-//    public void setAllureEnvironment() {
-//        allureEnvironmentWriter(
-//                ImmutableMap.<String, String>builder().put("Browser", "Edge").put("Browser.Version", "127.0.6533.122").put("OS Name","Windows 11")
-//                        .put("URL", "https://auditnesttest.azurewebsites.net").build(),
-//                System.getProperty("user.dir") + "/allure-results/");
-//    }
+    @BeforeSuite
+    public void setAllureEnvironment() {
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder().put("Browser", "Edge").put("Browser.Version", "130.0.2849.80 ").put("OS Name","Windows 10")
+                        .put("URL", "https://auditnesttest.azurewebsites.net").build(),
+                System.getProperty("user.dir") + "/allure-results/");
+    }
 
-@BeforeClass
+
+    @BeforeClass(groups = {"setup"})
     @Step("Browser starts")
     public void Setup() throws InterruptedException {
 
-      Browerlaunch("edge");
+      Browerlaunch("Edge");
 
-
+//                WebElement emailField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("i0116")));
+//                 Send(emailField,"raveendran.manickam@ilink-systems.com");
+//                click(Findelement(Locators.id, "idSIButton9"));      //driver.findElement(By.id("idSIButton9")).click();
+//                Thread.sleep(3000);
+//                WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("i0118")));
+//                Send(passwordField,"2003:Rmm");
+//                click(Findelement(Locators.id, "idSIButton9"));       //driver.findElement(By.id("idSIButton9")).click();
 
         }
 
+    public static String Properties(String key){
 
+        prop = new Properties();
+
+            try {
+                FileReader reader = new FileReader("Values.properties");
+                prop.load(reader);
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        return prop.getProperty(key);
+
+    }
 
 
     }
+
+
 
 
 
