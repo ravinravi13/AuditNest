@@ -33,17 +33,17 @@ public class SC_AN_002 extends BaseClass {
      String table_loc ="//div[@class='float-right']/following-sibling::table[1]";
 
 
-    @Step("Click Pre-Audite Report from side navigation bar")
+    @Step("Click Pre-Audit Report from side navigation bar")
     public void Click_PreAuditreport() {
         click(Findelement(Locators.xpath, preaudit_loc_1));
     }
 
-    @Step("Click togglecase of PreAudit Report ")
+    @Step("Click toggle case of PreAudit Report ")
 
     public void Click_PreAuditreport_2() {
         click(Findelement(Locators.xpath, Preaudit_loc_2));
     }
-    @Step("Click Add new PreAudit iconn from right corner")
+    @Step("Click Add new PreAudit icon from right corner")
     public void Click_AddPreAudit()
     {
         click(Findelement(Locators.xpath,Add_loc));
@@ -112,38 +112,6 @@ public class SC_AN_002 extends BaseClass {
         Send(Findelement(Locators.xpath,Date_loc),value);
     }
 
-//    @Step("After Successfully registered the preAudit then verify it display table of Pre-Audit Section")
-//    public List tableContent()
-//    {
-//        arr = new ArrayList<String>();
-//        WebElement table = Findelement(Locators.xpath,table_loc);
-//        List<WebElement> allRows = table.findElements(By.cssSelector("tbody tr"));
-//        for(WebElement rowElement : allRows)
-//        {
-//            List<WebElement> row = rowElement.findElements(By.tagName("td"));
-//            for(WebElement eachrow : row)
-//            {
-//                c++;
-//                if(c>5 && c<=9) {
-//                    String value = eachrow.getText();
-//                    arr.add(value);
-//
-//                }
-//                if(c==9)
-//                {
-//                    break;
-//                }
-//
-//            }
-//
-//        }
-//        String Arraylist = arr.toString();
-//
-//        Allure.addAttachment("Value get from tables :", new ByteArrayInputStream(Arraylist.getBytes(StandardCharsets.UTF_8)));
-//        return arr;
-//
-//    }
-
     public List<String> tableContent() {
         List<String> arr = new ArrayList<>();
         WebElement table = Findelement(Locators.xpath, table_loc);
@@ -155,9 +123,7 @@ public class SC_AN_002 extends BaseClass {
                 .limit(4)
                 .map(WebElement::getText)
                 .forEach(arr::add);
-
         String arrayList = arr.toString();
-        System.out.println("Table content  : "+arrayList);
         Allure.addAttachment("Value get from tables:", new ByteArrayInputStream(arrayList.getBytes(StandardCharsets.UTF_8)));
 
         return arr;

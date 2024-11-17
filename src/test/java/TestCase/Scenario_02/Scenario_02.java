@@ -14,15 +14,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Scenario_02 extends BaseClass {
 
     SC_AN_002 obj_SC_AN_002 = new SC_AN_002();
     DBconnection obj_DBconnection = new DBconnection();
-
     ArrayList expected = new ArrayList();
+    public static int preMainntanceTableId;
+    String accountName ="Yum Food";
+    String projectName = "Yum Foods_POC";
+    String unitName = "DEX";
+    String SelectDate = "";
 
 
    @Test(groups = {"Relevant_error"},priority = 1)
@@ -33,7 +36,7 @@ public class Scenario_02 extends BaseClass {
         obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_AccoutName("Yum Food");
+        obj_SC_AN_002.Select_AccoutName(accountName);
         obj_SC_AN_002.Click_Save();
         String value = obj_SC_AN_002.Required_unit();
         Allure.addAttachment("Expected error message from Unit", new ByteArrayInputStream(value.getBytes()));
@@ -48,8 +51,8 @@ public class Scenario_02 extends BaseClass {
     public void TC_AN_002_SelectProjectName() {
 
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_AccoutName("Yum Food");
-        obj_SC_AN_002.Select_ProjectName("Yum Foods_POC");
+        obj_SC_AN_002.Select_AccoutName(accountName);
+        obj_SC_AN_002.Select_ProjectName(projectName);
         obj_SC_AN_002.Click_Save();
         String value = obj_SC_AN_002.Required_unit();
         Allure.addAttachment("Expected error message from Unit", new ByteArrayInputStream(value.getBytes()));
@@ -62,7 +65,7 @@ public class Scenario_02 extends BaseClass {
             "By select only Unit then click save button error message pop-up on AccountName filed")
     public void TC_AN_003_SelectUnit() {
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_Unit("DEX");
+        obj_SC_AN_002.Select_Unit(unitName);
         obj_SC_AN_002.Click_Save();
         String value = obj_SC_AN_002.required_accountname();
         Allure.addAttachment("Expected error message from AccountName", new ByteArrayInputStream(value.getBytes()));
@@ -86,7 +89,7 @@ public class Scenario_02 extends BaseClass {
             "By select AccountName,Unit,date then click save button error message pop-up on projectName filed")
     public void TC_AN_005_Verify_ProjectFiled() {
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_AccoutName("Yum Food");
+        obj_SC_AN_002.Select_AccoutName(accountName);
         obj_SC_AN_002.Select_Unit("DEX");
         obj_SC_AN_002.Selectdate("16-10-2024");
         String value = obj_SC_AN_002.required_projetcname();
@@ -94,54 +97,45 @@ public class Scenario_02 extends BaseClass {
         obj_SC_AN_002.Cancel_btn();
     }
 
-   @Test(groups = "PreAudit")
+   @Test(groups = {"PreAudit"},priority = 1)
     @Description("Verify to create a New Pre-Audit report by select AccountName,ProjectName,Unit,Audit Date and verify the recent report saved or not")
     public void TC_AN_006_Verify_Create_NewPreaudit() throws InterruptedException {
        ArrayList expected = new ArrayList();
-       expected.add("Yum Foods_POC");
-       expected.add("Yum Food");
-       expected.add("DEX");
+       expected.add(projectName); // ProjectName
+       expected.add(accountName);
+       expected.add(unitName);
        expected.add("13-11-2024");
          obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_AccoutName("Yum Food");
-        obj_SC_AN_002.Select_ProjectName("Yum Foods_POC");
-        obj_SC_AN_002.Select_Unit("DEX");
+        obj_SC_AN_002.Select_AccoutName(accountName);
+        obj_SC_AN_002.Select_ProjectName(projectName);
+        obj_SC_AN_002.Select_Unit(unitName);
         Thread.sleep(4000);
         obj_SC_AN_002.Selectdate("13112024");
        Thread.sleep(4000);
         obj_SC_AN_002.Click_Save();
         List<String> Actual = obj_SC_AN_002.tableContent();
         Assert.assertEquals(Actual,expected,"Values are not Matched");
-
-
-//        List<String> actual = obj_SC_AN_002.tableContent();
-//        System.out.println("Actual list = "+actual);
-//        String expected_Str = expected.toString();
-//        System.out.println("Expected list = "+expected_Str);
-//        Allure.addAttachment("Actual value of input :", new ByteArrayInputStream(expected_Str.getBytes(StandardCharsets.UTF_8)));
-////        Boolean result = expected.contains(actual);
-//        String Actual_str = actual.toString();
-//        Assert.assertEquals(Actual_str, expected_Str, "Table Value is not matched");
-
-
     }
 
 
-  @Test(groups = "PreAudit")
+  @Test(groups = {"PreAudit"},priority = 2)
     @Description("Verify the recently registered pre audit record successfully stored in database")
     public void TC_AN_007_Verify_DB_PreAuditrecord() throws SQLException {
+      preMainntanceTableId = 167;
+      ++preMainntanceTableId;
       ArrayList expected = new ArrayList();
-        expected.add("Yum Food");
-        expected.add("Yum Foods_POC");
-        expected.add("DEX");
+        expected.add(accountName);
+        expected.add(projectName);
+        expected.add(unitName);
         expected.add("13-11-2024");
+
         List<String> arraylist =  new ArrayList<>();
         StringBuilder tableContent = new StringBuilder();
         Connection connection = obj_DBconnection.dbconnect();
 
-        String qu = "select top 5 * from PreAuditMaintenance where id=167";
+        String qu = "select top 5 * from PreAuditMaintenance where id=?"+ preMainntanceTableId;
         Allure.step("Use this query fetch value from database : " + qu);
         String query = qu;
         Statement stmt = connection.createStatement();
@@ -163,21 +157,21 @@ public class Scenario_02 extends BaseClass {
 
     }
 
-    @Test(groups = "Invalid")
+    @Test(groups = "Invalid" ,priority = 1)
     @Description("Verify to Invalid date can registered in pre-Audit reports")
     public void TC_AN_008_Verify_Invaliddate_Preaudit() {
         obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
         obj_SC_AN_002.Click_AddPreAudit();
-        obj_SC_AN_002.Select_AccoutName("Yum Food");
-        obj_SC_AN_002.Select_ProjectName("Yum Foods_POC");
-        obj_SC_AN_002.Select_Unit("DEX");
+        obj_SC_AN_002.Select_AccoutName(accountName);
+        obj_SC_AN_002.Select_ProjectName(projectName);
+        obj_SC_AN_002.Select_Unit(unitName);
         obj_SC_AN_002.Selectdate("16-10-0001");
         obj_SC_AN_002.Click_Save();
-        expected.add("MADI_AbbVie");
-        expected.add("AbbVie");
-        expected.add("DATA");
-        expected.add("22-02-0001");
+        expected.add(accountName);
+        expected.add(projectName);
+        expected.add(unitName);
+        expected.add("16-10-0001");
         List actual = obj_SC_AN_002.tableContent();
         String actual_Str = expected.toString();
         Allure.addAttachment("Actual value of input :", new ByteArrayInputStream(actual_Str.getBytes(StandardCharsets.UTF_8)));
@@ -190,26 +184,26 @@ public class Scenario_02 extends BaseClass {
     public void TC_AN_009_verify_SearchingBY_ProjectName() throws InterruptedException {
         obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
-       obj_SC_AN_002.SeacrText("MADI_AbbVie");
+       obj_SC_AN_002.SeacrText(projectName);
        Thread.sleep(3000);
         Screenshot.captureStepScreenshot(BaseClass.driver);
 
     }
     @Test(priority = 2,groups = "Search")
     @Description("Verify the Searching functionality By AccountName and data are correctly display in table")
-    public void TC_AN_009_Verify_SearchingBy_AccountName() throws InterruptedException {
+    public void TC_AN_0010_Verify_SearchingBy_AccountName() throws InterruptedException {
         obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
-        obj_SC_AN_002.SeacrText("Costco");
+        obj_SC_AN_002.SeacrText(accountName);
         Thread.sleep(3000);
         Screenshot.captureStepScreenshot(BaseClass.driver);
     }
     @Test(priority = 3,groups = "Search")
     @Description("Verify the Searching functionality By Unit and data are correctly display in table")
-    public void TC_AN_0010_Verify_SearchingBy_Unit() throws InterruptedException {
+    public void TC_AN_0011_Verify_SearchingBy_Unit() throws InterruptedException {
         obj_SC_AN_002.Click_PreAuditreport();
         obj_SC_AN_002.Click_PreAuditreport_2();
-        obj_SC_AN_002.SeacrText("DEX");
+        obj_SC_AN_002.SeacrText(unitName);
         Thread.sleep(3000);
         Screenshot.captureStepScreenshot(BaseClass.driver);
 
@@ -250,7 +244,7 @@ public class Scenario_02 extends BaseClass {
         Allure.step("After edit data value fetch value from database : " + qu1);
         String query1 = qu1;
         Statement stmt1 = connection1.createStatement();
-        ResultSet rs1 = stmt1.executeQuery(query);
+        ResultSet rs1 = stmt1.executeQuery(query1);
         int columnCount1 = rs.getMetaData().getColumnCount();
         for (int i = 1; i <= columnCount1; i++) {
             tableContent.append(rs.getMetaData().getColumnName(i)).append("\t");

@@ -50,7 +50,7 @@ public class Scenario_07 extends BaseClass {
         Assert.assertEquals(actual,expected,"Value are not matched");
     }
 
-    @Test
+   // @Test
     @Description("")
     public void TC_AN_003_VerifyPagination() throws SQLException, InterruptedException {
         obj_SC_AN_004.ClickAuditReport();

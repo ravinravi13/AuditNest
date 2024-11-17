@@ -29,7 +29,7 @@ public class Scenario_06 extends BaseClass {
 
 
 
-    // @Test
+    @Test(priority = 1)
    @Description("Verify Add the sprint in OM sprint Section by selecting SprintName,StartDate,EndDate")
     public void TC_AN_001_Verify_AddSprint(){
         obj_SC_AN_004.ClickAuditReport();
@@ -45,7 +45,7 @@ public class Scenario_06 extends BaseClass {
          obj_SC_AN_006.Cick_Save();
     }
 
-    //@Test
+    @Test(priority = 2)
     @Description("Verify Add Sprint functionality of Invalid test of without enter the Sprint name")
     public void TC_AN_002_Verify_InvalidTest() throws InterruptedException {
         obj_SC_AN_004.ClickAuditReport();
@@ -64,7 +64,7 @@ public class Scenario_06 extends BaseClass {
         Assert.fail("It allows to save  the Sprint without type SprintName");
     }
 
-   // @Test
+   @Test(priority = 3)
     @Description("Verify the database of recently saved sprint to check saved or not")
     public void TC_AN_003_Verify_DB_ADDSprint() throws SQLException {
         ArrayList<String> actual = new ArrayList<String>();
@@ -100,7 +100,7 @@ public class Scenario_06 extends BaseClass {
     }
 
 
-   // @Test
+   @Test(priority = 4)
     @Description("Verify the Back button feature in OM sprint it helps to backward the previous page")
   public void TC_AN_004_InvalidTest() throws InterruptedException {
         obj_SC_AN_004.ClickAuditReport();

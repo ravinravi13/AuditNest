@@ -12,8 +12,7 @@ public class SC_AN_001 extends BaseClass {
     @Step("Get the text from Application ")
     public String Verify_Text()
     {
-        String expected = getText(Locators.xpath,Welcome_text_loc);
-        return expected;
+        return getText(Locators.xpath,Welcome_text_loc);
     }
 
 

@@ -16,7 +16,7 @@ public class Scenario_05 extends BaseClass {
     SC_AN_004 obj_SC_AN_004 = new SC_AN_004();
     SC_AN_005 obj_SC_AN_005 = new SC_AN_005();
 
-   // @Test
+    @Test(priority = 1)
     @Description("Verify the Compliance value from UI and Database using formula as Compliance = WeightRating / Sum of Weightage")
     public void TC_AN_001_VerifyComplianceValue() throws SQLException {
 
@@ -30,7 +30,7 @@ public class Scenario_05 extends BaseClass {
         Assert.assertEquals(actual,expected,"Value are not matched");
     }
 
-   // @Test
+    @Test(priority = 2)
     @Description("Verify the pagination count UI and Database compare the values")
     public void TC_AN_002_VerifyNo_Checklist() throws InterruptedException, SQLException {
         obj_SC_AN_004.ClickAuditReport();

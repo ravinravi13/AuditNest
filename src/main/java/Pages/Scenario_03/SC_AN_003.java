@@ -17,7 +17,7 @@ public class SC_AN_003 extends BaseClass {
     String Preaudit_loc_2 = "//ul[@id='preauditreport']//a[1]";
     String Response_loc = "//textarea[@name='Response']";
     String save_loc = "//button[text()='Save']";
-    String Edit_loc = "(//a[@class='action cursor'])[1]";
+    String Edit_loc = "(//a[@class='action cursor'])[2]";
     String Unit_loc = "//select[@name='unit']";
     String date_loc ="//input[@type='date']";
     String table_loc  = "//table[@class='MuiTable-root-2051 table']";
@@ -74,9 +74,7 @@ public class SC_AN_003 extends BaseClass {
 
     public String Validate_response(){
 
-      String value = getText(Locators.xpath,"//td[text()='Project name']/following-sibling::td");
-
-        return value;
+        return getText(Locators.xpath,"//td[text()='Project name']/following-sibling::td");
     }
 
     @Step("Click Project Name of first column of as SMAART ")

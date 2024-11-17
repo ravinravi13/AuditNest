@@ -5,6 +5,7 @@ import Utilities.Locators;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -125,7 +126,11 @@ public class SC_AN_004 extends BaseClass {
     @Step("Pass the value of text as : {0}")
     public void SeacrText(String value)
     {
-        Send(Findelement(Locators.xpath,Search_loc),value);
+        WebElement element = Findelement(Locators.xpath,Search_loc);
+        element.clear();
+        Send(element,value);
+
+
     }
 
     @Step("After Successfully registered the preAudit then verify it display table of Pre-Audit Section")
@@ -166,19 +171,8 @@ public class SC_AN_004 extends BaseClass {
 
     public String GetDate()
     {
-        String date = getText(Locators.xpath,"//table[contains(@class,'MuiTable-root-347 table')]/tbody[1]/tr[2]/td[4]");
-        return date;
+        return getText(Locators.xpath,"//table[contains(@class,'MuiTable-root-347 table')]/tbody[1]/tr[2]/td[4]");
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @Step("Click Edit button")
@@ -196,6 +190,12 @@ public class SC_AN_004 extends BaseClass {
         click(Findelement(Locators.xpath,cancel_loc));
     }
 
+
+    public void setZoomout(){
+        for(int i=0; i<3; i++){
+            BaseClass.driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
+        }
+    }
 
 
 

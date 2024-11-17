@@ -1,11 +1,8 @@
 package Base;
+
 import Utilities.Locators;
-import Utilities.Screenshot;
 import com.google.common.collect.ImmutableMap;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,29 +12,24 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
-import java.io.*;
 import java.time.Duration;
 import java.util.List;
-import java.util.Properties;
-import java.util.Set;
 
 public class BaseClass {
 
-    long timeOuts =20;
+    long timeOuts = 20;
     static long maxWaitTime = 20;
     public static RemoteWebDriver driver;
-    public  static WebDriverWait wait ;
-    public static Properties prop;
+    public static WebDriverWait wait;
 
     @Step("lanch the Browser : {0}")
-    public void  Browerlaunch(String browser) {
+    public void Browerlaunch(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
                 driver = new ChromeDriver();
@@ -75,10 +67,10 @@ public class BaseClass {
         driver.quit();
     }
 
-    public void Send(WebElement element,String value){
-         WebElement element1 = wait.until(ExpectedConditions.visibilityOf(element));
-         element1.clear();
-         element1.sendKeys(value);
+    public void Send(WebElement element, String value) {
+        WebElement element1 = wait.until(ExpectedConditions.visibilityOf(element));
+        element1.clear();
+        element1.sendKeys(value);
     }
 
     public WebElement Findelement(Locators type, String value) {
@@ -88,8 +80,7 @@ public class BaseClass {
             return null;
         }
 
-        switch(type)
-        {
+        switch (type) {
             case id:
                 return driver.findElement(By.id(value));
 
@@ -116,8 +107,7 @@ public class BaseClass {
             System.err.println("Driver is null in FindElement");
             return null;
         }
-        switch(type)
-        {
+        switch (type) {
             case id:
                 return driver.findElements(By.id(value));
 
@@ -149,8 +139,9 @@ public class BaseClass {
         new Select(element).selectByVisibleText(value);
 
     }
+
     public void click(WebElement ele) {
-        WebElement element =wait.until(ExpectedConditions.elementToBeClickable(ele));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(ele));
         element.click();
 
     }
@@ -161,7 +152,7 @@ public class BaseClass {
 
     }
 
-    public String getText(Locators type,String value) {
+    public String getText(Locators type, String value) {
 
         String text;
         if (driver == null) {
@@ -169,8 +160,7 @@ public class BaseClass {
             return null;
         }
 
-        switch(type)
-        {
+        switch (type) {
             case id:
 
                 text = driver.findElement(By.id(value)).getText();
@@ -180,21 +170,21 @@ public class BaseClass {
 
             case name:
 
-                text= driver.findElement(By.name(value)).getText();
+                text = driver.findElement(By.name(value)).getText();
                 System.out.println(text);
                 return text;
 
             case xpath:
 
-                return text= driver.findElement(By.xpath(value)).getText();
+                return text = driver.findElement(By.xpath(value)).getText();
 
             case link:
 
-                return  text = driver.findElement(By.linkText(value)).getText();
+                return text = driver.findElement(By.linkText(value)).getText();
 
             case className:
 
-                return  text = driver.findElement(By.className(value)).getText();
+                return text = driver.findElement(By.className(value)).getText();
 
             default:
                 return null;
@@ -203,29 +193,10 @@ public class BaseClass {
 
     }
 
-
-//    public void Screen(ITestResult result) {
-//        if (ITestResult.FAILURE == result.getStatus()) {
-//            String screenshotPath = Screenshot.captureScreenshot(driver, result.getName());
-//            attachScreenshotToAllure(screenshotPath);
-//        }
-//
-//    }
-//
-//    @Attachment(value = "Screenshot on Failure", type = "image/png")
-//    public byte[] attachScreenshotToAllure(String path) {
-//        try {
-//            return FileUtils.readFileToByteArray(new File(path));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return new byte[0];
-//        }
-//    }
-
     @BeforeSuite
     public void setAllureEnvironment() {
         allureEnvironmentWriter(
-                ImmutableMap.<String, String>builder().put("Browser", "Edge").put("Browser.Version", "130.0.2849.80 ").put("OS Name","Windows 10")
+                ImmutableMap.<String, String>builder().put("Browser", "Edge").put("Browser.Version", "130.0.2849.80 ").put("OS Name", "Windows 10")
                         .put("URL", "https://auditnesttest.azurewebsites.net").build(),
                 System.getProperty("user.dir") + "/allure-results/");
     }
@@ -235,7 +206,7 @@ public class BaseClass {
     @Step("Browser starts")
     public void Setup() throws InterruptedException {
 
-      Browerlaunch("Edge");
+        Browerlaunch("Edge");
 
 //                WebElement emailField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("i0116")));
 //                 Send(emailField,"raveendran.manickam@ilink-systems.com");
@@ -245,29 +216,10 @@ public class BaseClass {
 //                Send(passwordField,"2003:Rmm");
 //                click(Findelement(Locators.id, "idSIButton9"));       //driver.findElement(By.id("idSIButton9")).click();
 
-        }
-
-    public static String Properties(String key){
-
-        prop = new Properties();
-
-            try {
-                FileReader reader = new FileReader("Values.properties");
-                prop.load(reader);
-            }
-            catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        return prop.getProperty(key);
-
     }
 
 
-    }
+}
 
 
 

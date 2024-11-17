@@ -1,30 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="AuditNest" parallel="methods" thread-count="2">
+<suite name="AuditNest">
     <listeners>
-        <listener class-name="Utilities.AllureListeners"> </listener>
+        <listener class-name="Utilities.AllureListeners"></listener>
     </listeners>
 
-    <test thread-count="5" name="Admin Module">
+    - Scenaro 1 : Login the Application
+    <test thread-count="5" name="Scenario 1">
+        <groups>
+            <run>
+                <include name="setup"/>
+                <include name="Login"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="TestCase.Scenario_01.Scenario_01"/>
+        </classes>
+    </test>
+
+
+    <!-- Scenario 2 : Pre-Audit functionality  -->
+    <test thread-count="5" name="Scenario 2">
+        <groups>
+            <run>
+                <include name="setup"/>
+                <include name="Relevant_error"/>
+                <include name="PreAudit"/>
+                <include name="Invalid"/>
+                <include name="Search"/>
+            </run>
+
+        </groups>
+        <classes>
+            <class name="TestCase.Scenario_02.Scenario_02"></class>
+
+        </classes>
+    </test>
+
+    Scenario 3 : Pre-Audit edit compliance functionality
+
+    <test name="Scenario 3" thread-count="5">
+        <groups>
+            <run>
+                <include name="setup"/>
+                <include name="preAuditEdit"/>
+                <include name="preAuditCompliance"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="TestCase.Scenario_03.Scenario_03"/>
+        </classes>
+    </test>
+
+    <test name="Scenario 4 : Audit Report functionality" thread-count="5">
+
+        <groups>
+            <run>
+                <include name="setup"/>
+                <include name="Audit"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="TestCase.Scenario_04.Scenario_04"/>
+        </classes>
+    </test>
+
+    <test name="Scenario 4 : Searching feature" thread-count="6" parallel="methods">
         <groups>
             <run>
                 <include name="setup"/>
                 <include name="Search"/>
             </run>
         </groups>
-
         <classes>
-<!--                       <class name="TestCase.Scenario_01.Scenario_01"></class>-->
-                        <class name="TestCase.Scenario_02.Scenario_02"></class>
-            <!--            <class name="TestCase.Scenario_03.Scenario_03"></class>-->
-            <!--            <class name="TestCase.Scenario_04.Scenario_04"></class>-->
-            <!--            <class name="TestCase.Scenario_05.Scenario_05"></class>-->
-            <!--            <class name="TestCase.Scenario_06.Scenario_06"></class>-->
-<!--            <class name="TestCase.Scenario_07.Scenario_07"></class>-->
-<!--            <class name="TestCase.Scenario_08.Scenario_08"></class>-->
-
+            <class name="TestCase.Scenario_04.Scenario_04"/>
         </classes>
-
     </test>
+
+    <test name="Scenario 5  PCI Compliance and its Functionalities" parallel="methods">
+        <classes>
+            <class name="TestCase.Scenario_05.Scenario_05"></class>
+        </classes>
+    </test>
+
+    <test name="Scenario 7 : " thread-count="6" parallel="tests">
+        <classes>
+            <class name="TestCase.Scenario_07.Scenario_07"/>
+        </classes>
+    </test>
+
+    <test name="Scenario 8 : " thread-count="6" parallel="tests">
+        <classes>
+            <class name="TestCase.Scenario_08.Scenario_08"/>
+        </classes>
+    </test>
+
 
 </suite>
