@@ -35,6 +35,7 @@ public class BaseClass {
                 driver = new ChromeDriver();
                 break;
             case "edge":
+                 System.getProperty("webdriver.edge.driver","C:\\Users\\raveendran.manickam\\Desktop\\Auditnest-testing-env\\src\\main\\resources\\Drivers\\msedgedriver.exe");
                 driver = new EdgeDriver();
                 break;
             case "firefox":
